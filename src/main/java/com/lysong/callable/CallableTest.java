@@ -17,8 +17,11 @@ public class CallableTest {
         //适配类
         FutureTask<Integer> integerFutureTask = new FutureTask<>(myThread);
         new Thread(integerFutureTask,"A").start();
-        //获取返回结果
+        //结果会被缓存
+        new Thread(integerFutureTask,"B").start();
+        //获取返回结果，可能会阻塞，放在最后
         Integer integer = integerFutureTask.get();
+        //或者使用异步通信
         System.out.println(integer);
     }
 }
